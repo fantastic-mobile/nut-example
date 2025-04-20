@@ -6,8 +6,8 @@ const toggle = ref(true)
 </script>
 
 <template>
-  <PageLayout :navbar="false" tabbar>
-    <PageMain title="Button">
+  <FmPageLayout :navbar="false" tabbar>
+    <FmPageMain title="Button">
       <nut-button type="primary">
         主要按钮
       </nut-button>
@@ -23,13 +23,13 @@ const toggle = ref(true)
       <nut-button type="warning">
         警告按钮
       </nut-button>
-    </PageMain>
+    </FmPageMain>
     <nut-form class="mx-4">
       <nut-form-item label="用户名">
         <nut-input v-model="input" label="文本" placeholder="请输入用户名" />
       </nut-form-item>
     </nut-form>
-    <PageMain title="Radio">
+    <FmPageMain title="Radio">
       <nut-radio-group v-model="radio">
         <nut-radio :label="1">
           单选框 1
@@ -38,12 +38,12 @@ const toggle = ref(true)
           单选框 2
         </nut-radio>
       </nut-radio-group>
-    </PageMain>
-    <PageMain title="Rate">
+    </FmPageMain>
+    <FmPageMain title="Rate">
       <nut-rate v-model="rate" />
-    </PageMain>
-    <PageMain title="Switch">
+    </FmPageMain>
+    <FmPageMain title="Switch">
       <nut-switch v-model="toggle" />
-    </PageMain>
-  </PageLayout>
+    </FmPageMain>
+  </FmPageLayout>
 </template>

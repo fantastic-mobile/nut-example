@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import eruda from 'eruda'
-import VConsole from 'vconsole'
-import Provider from './ui-provider/index.vue'
-import eventBus from '@/utils/eventBus'
-import useSettingsStore from '@/store/modules/settings'
 import useKeepAliveStore from '@/store/modules/keepAlive'
+import useSettingsStore from '@/store/modules/settings'
+import eventBus from '@/utils/eventBus'
+import Provider from './ui/provider/index.vue'
 
 const route = useRoute()
 
@@ -36,10 +34,7 @@ watch([
   deep: true,
 })
 
-import.meta.env.VITE_APP_DEBUG_TOOL === 'eruda' && eruda.init()
-import.meta.env.VITE_APP_DEBUG_TOOL === 'vconsole' && new VConsole()
-
-const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
+const enableAppSetting = import.meta.env.VITE_APP_SETTING
 </script>
 
 <template>
@@ -48,26 +43,27 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
       <Transition name="fade" mode="out-in" appear>
         <KeepAlive :include="keepAliveStore.list">
           <component :is="Component" v-if="isAuth" :key="route.fullPath" />
-          <NotAllowed v-else />
+          <FmNotAllowed v-else />
         </KeepAlive>
       </Transition>
     </RouterView>
     <template v-if="enableAppSetting">
       <div class="app-setting" @click="eventBus.emit('global-app-setting-toggle')">
-        <SvgIcon name="i-uiw:setting-o" class="icon" />
+        <FmIcon name="i-uiw:setting-o" class="icon" />
       </div>
-      <AppSetting />
+      <FmAppSetting />
     </template>
+    <FmToast />
   </Provider>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .app-setting {
-  --at-apply: text-white dark-text-dark bg-ui-primary;
+  --uno: bg-primary text-primary-foreground rounded-l-md;
 
   position: fixed;
+  inset-inline-end: 0;
   top: 70%;
-  right: 0;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -76,7 +72,6 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
   height: 50px;
   font-size: 24px;
   cursor: pointer;
-  border-radius: 5px 0 0 5px;
 
   .icon {
     animation: rotate 5s linear infinite;
@@ -113,7 +108,7 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
   transform: translateY(100%);
 }
 
-// 主内容区动画
+/* 主内容区动画 */
 .fade-enter-active {
   transition: 0.2s;
 }

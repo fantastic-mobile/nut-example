@@ -1,5 +1,5 @@
+import { faker } from '@faker-js/faker'
 import { defineFakeRoute } from 'vite-plugin-fake-server/client'
-import Mock from 'mockjs'
 
 export default defineFakeRoute([
   {
@@ -9,11 +9,11 @@ export default defineFakeRoute([
       return {
         error: '',
         status: 1,
-        data: Mock.mock({
+        data: {
           account: body.account,
-          token: `${body.account}_@string`,
-          avatar: 'https://fantastic-mobile.github.io/logo.png',
-        }),
+          token: `${body.account}:${faker.internet.jwt()}`,
+          avatar: 'https://fantastic-mobile.hurui.me/logo.png',
+        },
       }
     },
   },
